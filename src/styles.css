@@ -22,12 +22,11 @@ header {
 }
 
 .search-input {
+  width: 80%;
+  font-size: 16px;
+  padding: 15px 20px;
   background-color: #f9f7fe;
   border: none;
-  color: rgba(39, 33, 66, 0.4);
-  font-size: 16px;
-  padding: 20px;
-  width: 75%;
   border-radius: 6px;
   transition: all 200ms ease-out;
 
@@ -38,18 +37,16 @@ header {
 }
 
 .search-button {
-  margin-left: 5px;
-  font-size: 16px;
-  background-color: #885df1;
-  color: white;
+  background: #885df1;
+  padding: 15px 30px;
   border: none;
-  padding: 20px;
-  line-height: 1;
-  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 5px;
+  border-radius: 6px;
+  color: white;
   cursor: pointer;
   transition: all 200ms ease-out;
-
-  &:hover,
+  */ &:hover,
   &:focus {
     background-color: #7f56e5;
   }
