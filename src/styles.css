@@ -29,6 +29,12 @@ header {
   padding: 20px;
   width: 75%;
   border-radius: 6px;
+  transition: all 200ms ease-out;
+
+  &:hover,
+  &:focus {
+    outline: 1px solid #7f56e5;
+  }
 }
 
 .search-button {
@@ -40,6 +46,13 @@ header {
   padding: 20px;
   line-height: 1;
   border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+
+  &:hover,
+  &:focus {
+    background-color: #7f56e5;
+  }
 }
 
 main {
@@ -88,7 +101,11 @@ main {
   position: relative;
   top: -38px;
 }
-
+.humidity,
+.wind {
+  color: #f65282;
+  font-weight: bold;
+}
 footer {
   border-top: 1px solid #f9f7fe;
   text-align: center;

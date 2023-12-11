@@ -23,6 +23,7 @@
             required
             class="search-input"
             id="search-input"
+            required
           />
           <input type="submit" value="Search" class="search-button" />
         </form>
@@ -32,8 +33,10 @@
           <div>
             <h1 class="current-city" id="current-city">Paris</h1>
             <p class="current-details">
-              <span id="current-date"></span>, moderate rain <br />
-              Humidity: <strong>87%</strong>, Wind: <strong>7.2km/h</strong>
+              <span id="current-date"></span>, <span id="description"></span>
+              <br />
+              Humidity: <span id="humidity" class="humidity">87%</span>, Wind:
+              <span id="wind" class="wind">7.2km/h</span>
             </p>
           </div>
           <div class="current-temperature">
