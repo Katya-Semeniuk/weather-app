@@ -1,30 +1,44 @@
-function displayTemperature(res) {
+function refreshWeather(res) {
   let temperatureElement = document.querySelector("#current-temperature");
   let cityElement = document.querySelector("#current-city");
+  let descriptionElement = document.getElementById("description");
   let humidityElement = document.getElementById("humidity");
   let windElement = document.getElementById("wind");
+  let iconElement = document.getElementById("icon");
+  let currentDateELement = document.querySelector("#current-date");
+
+  let currentDate = new Date(res.data.time * 1000);
+
+  currentDateELement.innerHTML = formatDate(currentDate);
 
   let temperature = Math.round(res.data.temperature.current);
   let humidity = `${res.data.temperature.humidity}%`;
   let wind = `${res.data.wind.speed}km/h`;
-  let iconWeather = res.data.condition.icon_url;
+  let iconWeatherCity = res.data.condition.icon_url;
 
   cityElement.innerHTML = res.data.city;
   temperatureElement.innerHTML = temperature;
+  descriptionElement.innerHTML = res.data.condition.description;
   humidityElement.innerHTML = humidity;
   windElement.innerHTML = wind;
+  iconElement.innerHTML = `<img
+              src="${iconWeatherCity}"
+              alt="The Weather icon"
+            />`;
+}
+
+function searchCity(city) {
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(refreshWeather);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
 
-  let city = searchInputElement.value;
-
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(displayTemperature);
+  searchCity(searchInputElement.value);
 }
 
 function formatDate(date) {
@@ -57,10 +71,7 @@ function formatDate(date) {
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
 
-let currentDateELement = document.querySelector("#current-date");
-let currentDate = new Date();
-
-currentDateELement.innerHTML = formatDate(currentDate);
+searchCity("Kyiv");
 
 // function refreshWeather(response) {
 //   let temperatureElement = document.querySelector("#temperature");
