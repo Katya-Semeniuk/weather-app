@@ -1,4 +1,5 @@
 function refreshWeather(res) {
+  getFourcast(res.data.city);
   let temperatureElement = document.querySelector("#current-temperature");
   let cityElement = document.querySelector("#current-city");
   let descriptionElement = document.getElementById("description");
@@ -25,7 +26,6 @@ function refreshWeather(res) {
               src="${iconWeatherCity}"
               alt="The Weather icon"
             />`;
-  getFourcast(res.data.city);
 }
 
 function searchCity(city) {
@@ -74,18 +74,40 @@ searchForm.addEventListener("submit", handleSubmit);
 
 searchCity("Kyiv");
 
-function displayForecast(res) {
-  console.log(res.data.daily);
-  let forecastElement = document.getElementById("forecast");
+// -----weather forecast ---
+function formatForcastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
 
-  forecastElement.innerHTML = `
-<div class="forecast-day">Tue</div>
-        <img src="" alt="">
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastDay = days[date.getDay()];
+  return forecastDay;
+}
+
+function displayForecast(res) {
+  let forecastElement = document.getElementById("forecast");
+  let forecastHTML = "";
+
+  res.data.daily.forEach((el, index) => {
+    let maxTemperature = Math.round(el.temperature.maximum);
+    let minTemperature = Math.round(el.temperature.minimum);
+    let icone = el.condition.icon_url;
+
+    if (index !== 0) {
+      forecastHTML =
+        forecastHTML +
+        `<li class="forecast-item">
+        <div class="forecast-day">${formatForcastDay(el.time)}</div>
+        <img src="${icone}" alt="The icon of the weather" class="forecast-temperature-icon">
         <div class="forecast-temperature">
-          <span class="forecast-temperature-max"></span>
-          <span class="forecast-temperature-min"></span>
+          <span class="forecast-temperature-max">${maxTemperature} /</span>
+          <span class="forecast-temperature-min">${minTemperature}</span>
         </div>
-`;
+        </li>
+      `;
+    }
+  });
+
+  forecastElement.innerHTML = forecastHTML;
 }
 
 function getFourcast(city) {
