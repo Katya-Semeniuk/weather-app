@@ -25,6 +25,7 @@ function refreshWeather(res) {
               src="${iconWeatherCity}"
               alt="The Weather icon"
             />`;
+  getFourcast(res.data.city);
 }
 
 function searchCity(city) {
@@ -73,61 +74,23 @@ searchForm.addEventListener("submit", handleSubmit);
 
 searchCity("Kyiv");
 
-// function refreshWeather(response) {
-//   let temperatureElement = document.querySelector("#temperature");
-//   let temperature = response.data.temperature.current;
-//   let cityElement = document.querySelector("#city");
-//   let descriptionElement = document.querySelector("#description");
-//   let humidityElement = document.querySelector("#humidity");
-//   let windSpeedElement = document.querySelector("#wind-speed");
-//   let timeElement = document.querySelector("#time");
-//   let date = new Date(response.data.time * 1000);
-//   let iconElement = document.querySelector("#icon");
+function displayForecast(res) {
+  console.log(res.data.daily);
+  let forecastElement = document.getElementById("forecast");
 
-//   cityElement.innerHTML = response.data.city;
-//   timeElement.innerHTML = formatDate(date);
-//   descriptionElement.innerHTML = response.data.condition.description;
-//   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
-//   windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
-//   temperatureElement.innerHTML = Math.round(temperature);
-//   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
-// }
+  forecastElement.innerHTML = `
+<div class="forecast-day">Tue</div>
+        <img src="" alt="">
+        <div class="forecast-temperature">
+          <span class="forecast-temperature-max"></span>
+          <span class="forecast-temperature-min"></span>
+        </div>
+`;
+}
 
-// function formatDate(date) {
-//   let minutes = date.getMinutes();
-//   let hours = date.getHours();
-//   let days = [
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday",
-//   ];
-//   let day = days[date.getDay()];
+function getFourcast(city) {
+  apiKey = "8907b2tf0b29bfcd0b41134b5b1c6ao9";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
 
-//   if (minutes < 10) {
-//     minutes = `0${minutes}`;
-//   }
-
-//   return `${day} ${hours}:${minutes}`;
-// }
-
-// function searchCity(city) {
-//   let apiKey = "b2a5adcct04b33178913oc335f405433";
-//   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-//   axios.get(apiUrl).then(refreshWeather);
-// }
-
-// function handleSearchSubmit(event) {
-//   event.preventDefault();
-//   let searchInput = document.querySelector("#search-form-input");
-
-//   searchCity(searchInput.value);
-// }
-
-// let searchFormElement = document.querySelector("#search-form");
-// searchFormElement.addEventListener("submit", handleSearchSubmit);
-
-// searchCity("Paris");
+  axios.get(apiUrl).then(displayForecast);
+}
