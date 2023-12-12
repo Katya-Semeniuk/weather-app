@@ -48,7 +48,7 @@ header {
   color: white;
   cursor: pointer;
   transition: all 200ms ease-out;
-  */ &:hover,
+  &:hover,
   &:focus {
     background-color: #7f56e5;
   }
@@ -120,7 +120,8 @@ footer {
 .forecast-item {
   text-align: center;
   border-radius: 5px;
-  padding: 10px 5px;
+  padding: 7px 0;
+  background-color: #afdff27a;
 }
 
 .forecast-temperature-max {
